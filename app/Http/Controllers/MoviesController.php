@@ -15,8 +15,7 @@ class MoviesController extends Controller
     public function index()
     {
         $movies = Movie::latest()->paginate(4);
-        dd($movies);
-        return view('movies.index');
+        return view('movies.index', compact('movies'))->with('i', (request()->input('page', 1) - 1) * 4);
     }
 
     /**

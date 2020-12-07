@@ -1,3 +1,7 @@
 .wrapperdiv {
     padding-top: 30px;
 }
+
+.img-thumbnail {
+    width: 100px;
+}
