@@ -80,7 +80,8 @@ class MoviesController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+        $genres = ['Action' , 'Adventure' , 'Comedy' , 'Drama' , 'Thrill'  ];
+        return view('movies.edit', compact('movie', 'genres'));
     }
 
     /**
@@ -92,7 +93,26 @@ class MoviesController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $request->validate([
+            'title'=>'required',
+            'genre'=>'required',
+            'release_year'=>'required',
+            'poster'=>'required | image | mimes:jpeg,png,jpg,gif | max:2048'
+            ]);
+    
+            $imageName = '';
+            if($request->poster) {
+                $imageName = time() . '.' . $request->poster->extension();
+                $request->poster->move(public_path('uploads'), $imageName);
+                $movie->poster = $imageName;
+            }
+
+            $movie->title = $request->title;
+            $movie->genre = $request->genre;
+            $movie->release_year = $request->release_year;
+            $movie->update();
+            return redirect()->route('movies.index')->with('success','Movie has been updated successfully');
+
     }
 
     /**

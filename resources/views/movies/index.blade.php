@@ -38,7 +38,7 @@
         <form action="{{ route('movies.destroy', $movie->id) }}" method="POST">
           <a href="{{ route('movies.show', $movie->id) }}" class="btn btn-info">Show</a>
 
-          <a href="{{ route('movies.show', $movie->id) }}" class="btn btn-primary">Edit</a>
+          <a href="{{ route('movies.edit', $movie->id) }}" class="btn btn-primary">Edit</a>
 
           @csrf
 

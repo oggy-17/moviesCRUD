@@ -5,28 +5,28 @@
 <div class="wrapperdiv">
     <div class="formcontainer">
 
-      @if ($errors->any())
+        @if ($errors->any())
 
-      <div class="alert alert-danger">
-          <strong>Oops! You have not filled all the inputs.</strong>
-          <ul>
-              @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">
+            <strong>Oops! You have not filled all the inputs.</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
 
-          <li>{{ $error }}</li>
+            <li>{{ $error }}</li>
 
-              @endforeach
-          </ul>
-      </div>
+                @endforeach
+            </ul>
+        </div>
 
-      @endif
+        @endif
 
-    <form action="{{ route( 'movies.update', $movie->id ) }}" method="POST" enctype="multipart/form-data">
+
+    <form action="{{ route( 'movies.store' ) }}" method="POST" enctype="multipart/form-data">
        @csrf
-       @method('PUT')
 
        <div class="form-group">
         <label for="title"> <b>Title</b></label>
-        <input type="text" class="form-control" name="title" id="title">
+        <input type="text" class="form-control" name="title" id="title" value="{{ $movie->title }}">
       </div>
 
       <div class="form-group">
@@ -38,7 +38,15 @@
 
                 @foreach ($genres as $genre)
 
+                @if ($genre == $movie->genre)
+
+                <option value="{{($genre)}}" selected>{{($genre)}}</option>
+
+                @else
+
                 <option value="{{($genre)}}">{{($genre)}}</option>
+
+                @endif
 
                 @endforeach
 
@@ -53,13 +61,13 @@
 
       <div class="form-group">
         <label for="release_year"> <b>Release Year</b></label>
-        <input type="text" class="form-control" name="release_year" id="release_year">
+      <input type="text" class="form-control" name="release_year" id="release_year" value="{{ $movie->release_year }}">
       </div>
 
 
       <div class="form-group">
         <label for="poster"> <b>Poster</b></label>
-        <input type="file" class="form-control-file" name="poster" id="poster">
+        <input type="file" class="form-control-file" name="poster" id="poster" value="{{ $movie->poster }}">
       </div>
 
       <div class="form-group">
