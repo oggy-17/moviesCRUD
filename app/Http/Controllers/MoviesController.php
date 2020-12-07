@@ -121,8 +121,10 @@ class MoviesController extends Controller
      * @param  \App\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Movie $movie)
+    public function destroy($id)
     {
-        //
+        $movie = Movie::findOrFail($id);
+        $movie->delete();
+        return redirect()->route('movies.index')->with('success','Movie has been deleted successfully');
     }
 }
